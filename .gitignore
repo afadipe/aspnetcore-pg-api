@@ -1,0 +1,18 @@
+.npmrc
+node_modules
+.vs/
+.vscode/
+.idea/
+bin/
+obj/
+api/src/WebApi/WebApi.xml
+# General
+.DS_Store
+
+# Terraform
+**/.terraform/*
+
+*.tfstate
+*.tfstate.*
+terraform.tfstate.d
+/package-lock.json

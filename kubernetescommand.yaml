@@ -1,0 +1,26 @@
+kubectl create -f db.yml
+kubectl get pods
+kubectl get pods -o wide
+kubectl get pods -o json
+kubectl get pods -o yaml
+kubectl describe pod db
+kubectl logs db
+
+kubectl delete deployment,service,ingress --all
+kubectl get pods --all-namespaces
+kubectl get all --all-namespaces
+
+--ReplicaSet
+kubectl create -f go-demo-2.yml
+kubectl get rs
+kubectl get -f go-demo-2.yml
+kubectl describe -f go-demo-2.yml
+kubectl get pods --show-labels
+
+
+Rolling back with Kubernetes
+kubectl rollout undo -f go-demo-2-api.yml
+kubectl rollout status -f go-demo-2-api.yml
+kubectl describe -f go-demo-2-api.yml
+kubectl rollout history -f go-demo-2-api.yml
+kubectl set image -f go-demo-2-api.yml api=vfarcic/go-demo-2:4.0 --record

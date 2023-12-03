@@ -1,0 +1,1 @@
+Script-Migration -Idempotent -out SleekCompanyEmployees.API/script/Migration.sql
