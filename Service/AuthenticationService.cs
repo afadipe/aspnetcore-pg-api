@@ -110,7 +110,7 @@ internal sealed class AuthenticationService : IAuthenticationService
             ValidateIssuer = true,
             ValidateIssuerSigningKey = true,
             IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("SECRET"))),
+                Encoding.UTF8.GetBytes(_jwtConfiguration.Secret)),
             ValidateLifetime = true,
             ValidIssuer = _jwtConfiguration.ValidIssuer,
             ValidAudience = _jwtConfiguration.ValidAudience
@@ -132,7 +132,7 @@ internal sealed class AuthenticationService : IAuthenticationService
 
     private SigningCredentials GetSigningCredentials()
     {
-        var key = Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("SECRET"));
+        var key = Encoding.UTF8.GetBytes(_jwtConfiguration.Secret);
         var secret = new SymmetricSecurityKey(key);
 
         return new SigningCredentials(secret, SecurityAlgorithms.HmacSha256);

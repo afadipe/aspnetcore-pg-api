@@ -4,5 +4,7 @@ var app = WebApplication.CreateBuilder(args)
     .RegisterServices()
     .Build();
 
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
 app.SetupMiddleware()
     .Run();

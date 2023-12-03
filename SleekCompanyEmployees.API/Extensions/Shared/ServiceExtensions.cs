@@ -51,8 +51,8 @@ public static class ServiceExtensions
     public static void ConfigureSqlContext(this IServiceCollection services, IConfiguration configuration) =>
     services.AddDbContextFactory<RepositoryContext>(opts =>
     {
-        var postgressConnectionString = configuration.GetValue<string>("ConnectionStrings:sqlConnection");
-        var connectionString = configuration.GetConnectionString("sqlConnection");
+        var postgressConnectionString = configuration.GetValue<string>("ConnectionStrings:DBConnection");
+        var connectionString = configuration.GetConnectionString("DBConnection");
         opts.UseNpgsql(connectionString, o =>
         {
             o.MigrationsAssembly("SleekCompanyEmployees.API");
@@ -141,8 +141,6 @@ public static void ConfigureVersioning(this IServiceCollection services)
         var jwtConfiguration = new JwtConfiguration();
         configuration.Bind(jwtConfiguration.Section, jwtConfiguration);
 
-        var secretKey = Environment.GetEnvironmentVariable("SECRET") ?? "CodeMazeSecretKey";
-
         services.AddAuthentication(opt =>
         {
             opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -159,7 +157,7 @@ public static void ConfigureVersioning(this IServiceCollection services)
 
                 ValidIssuer = jwtConfiguration.ValidIssuer,
                 ValidAudience = jwtConfiguration.ValidAudience,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfiguration.Secret))
             };
         });
     }
